@@ -15,6 +15,7 @@ pub mod agents;
 pub mod live;
 pub mod intelligence;
 pub mod enterprise;
+pub mod core;
 
 use std::{env, net::SocketAddr, sync::Arc};
 
@@ -99,6 +100,11 @@ async fn main() -> anyhow::Result<()> {
     // Run your demos in the background (DO THIS BEFORE AXUM::SERVE)
     tokio::spawn(crate::runtime::demo::run_graph_demo());
     tokio::spawn(crate::platform::plugin::demo::run_wasm_demo());
+
+
+    // 👇 ADD THIS ONE LINE TO TEST PHASE 14 SAFELY 👇
+    //tokio::spawn(crate::core::surfaces::run_multi_surface_demo());
+    tokio::spawn(crate::core::surfaces::run_redner_os_grand_finale());
 
     // Start the server (this blocks forever, so it MUST be the very last thing)
     axum::serve(listener, app).await?;
